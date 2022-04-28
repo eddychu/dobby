@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/eddy/Projects/dobby/build",
+  "command": "/usr/bin/clang++   -g -o CMakeFiles/dobby.dir/main.cpp.o -c /home/eddy/Projects/dobby/main.cpp",
+  "file": "/home/eddy/Projects/dobby/main.cpp"
+}
+]
