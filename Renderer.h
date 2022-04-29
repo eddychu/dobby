@@ -67,6 +67,13 @@ struct Renderer
         vec3(1, -1, 0),
         vec3(0, 1, 0)};
 
+    std::vector<vec3> colors = {
+        vec3(1.0f, 0.0f, 0.0f),
+        vec3(0.0f, 1.0f, 0.0f),
+        vec3(0.0f, 0.0f, 1.0f)};
+
+    std::vector<vec3> fragmentsBuf;
+
     std::vector<vec4> clipCoordsBuf;
 
     SDL_Window *window;
@@ -187,10 +194,11 @@ struct Renderer
                 if (barycentric.x >= 0.0f && barycentric.y >= 0.0f && barycentric.z >= 0.0f)
                 {
                     float z = barycentric.x * v1.z + barycentric.y * v2.z + barycentric.z * v3.z;
+                    vec3 color = barycentric.x * colors[0] + barycentric.y * colors[1] + barycentric.z * colors[2];
                     if (z < zBuffer[i + j * width])
                     {
                         zBuffer[i + j * width] = z;
-                        frameBuffer.setPixel(i, j, 1.0f, 0.0f, 0.0f);
+                        frameBuffer.setPixel(i, j, color.x, color.y, color.z);
                     }
                 }
             }

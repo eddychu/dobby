@@ -1,3 +1,0 @@
-/home/eddy/Projects/dobby/build/CMakeFiles/dobby.dir
-/home/eddy/Projects/dobby/build/CMakeFiles/edit_cache.dir
-/home/eddy/Projects/dobby/build/CMakeFiles/rebuild_cache.dir
