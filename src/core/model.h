@@ -1,29 +1,24 @@
 #pragma once
-#include "math/math.h"
 #include <string>
 #include <vector>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <iostream>
+#include <glm/glm.hpp>
+#include "texture.h"
 using namespace std;
+using namespace glm;
 struct Vertex
 {
-    Vector3F position;
-    Vector3F normal;
-    Vector2F tex_coords;
-    Vector3F tangent;
-    Vector3F bitangent;
+    vec3 position;
+    vec3 normal;
+    vec2 tex_coords;
+    vec3 tangent;
+    vec3 bitangent;
     Vertex()
     {
     }
-};
-
-struct Texture
-{
-    unsigned int id;
-    std::string type;
-    std::string pth;
 };
 
 class Mesh
@@ -38,8 +33,6 @@ public:
         this->vertices = move(vertices);
         this->indices = move(indices);
         this->textures = move(textures);
-
-
     }
 };
 
@@ -92,7 +85,7 @@ public:
         for (unsigned int i = 0; i < mesh->mNumVertices; i++)
         {
             Vertex vertex;
-            Vector3F vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
+            vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
             // positions
             vector.x = mesh->mVertices[i].x;
             vector.y = mesh->mVertices[i].y;
@@ -109,7 +102,7 @@ public:
             // texture coordinates
             if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
             {
-                Vector2F vec;
+                vec2 vec;
                 // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't
                 // use models where a vertex can have multiple texture coordinates so we always take the first set (0).
                 vec.x = mesh->mTextureCoords[0][i].x;
@@ -127,7 +120,7 @@ public:
                 vertex.bitangent = vector;
             }
             else
-                vertex.tex_coords = Vector2F(0.0f, 0.0f);
+                vertex.tex_coords = vec2(0.0f, 0.0f);
 
             vertices.push_back(vertex);
         }
